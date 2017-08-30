@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Line Chart</title>
+		<script src="js/Chart.js"></script>
+		<script src='lib/jquery.min.js'></script>
+	</head>
+	<body>
+		<div>
+			<span>
+				<button onclick="window.location.href='usage.html'">daily</button>
+				<button onclick="window.location.href='weeklyusage.html'">weekly</button>
+			</span>
+		</div>
+		<div style="width:100%">
+			<div>
+				<canvas id="canvas" height="768" width="1024"></canvas>
+			</div>
+		</div>
+		<div>
+			<a><button onclick="window.location.href='index.html'">home</button></a>
+		</div>
+
+	<script>
+		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+		var date = new Date();
+		
+		function setMonthly(date){
+			var labels = [];
+			var data = [];
+			$.ajax ( {
+			    url: "php/monthly.php",
+			    dataType: "json",
+			    success: function ( data, textStatus, jqXHR ) {
+					labels = data[0];
+					data = data[1];
+					genChart("monthly", labels, data);
+			    }
+		    } );
+		}
+		
+		function genChart(label, labels, data){
+			var lineChartData = {
+				labels : labels,
+				datasets : [
+					{
+						label: label,
+						fillColor : "rgba(151,187,205,0.2)",
+						strokeColor : "rgba(151,187,205,1)",
+						pointColor : "rgba(151,187,205,1)",
+						pointStrokeColor : "#fff",
+						pointHighlightFill : "#fff",
+						pointHighlightStroke : "rgba(151,187,205,1)",
+						data : data
+					}
+				]
+			}
+			document.getElementById("canvas").innerHTML = "";
+			var ctx = document.getElementById("canvas").getContext("2d");
+			window.myLine = new Chart(ctx).Line(lineChartData, {
+
+			});
+		}
+		
+		
+
+	window.onload = function(){
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		setMonthly(date);
+		
+	}
+
+
+	</script>
+	</body>
+</html>

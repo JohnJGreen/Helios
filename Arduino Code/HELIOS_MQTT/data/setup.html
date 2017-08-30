@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        section {
+            width: 350px;
+            float: left;
+            padding: 10px;
+        }
+        
+        footer {
+            background-color: black;
+            color: white;
+            clear: both;
+            text-align: center;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<script>
+var settingsJSON;
+
+//	updates data in the settings fields
+
+function refresh(){
+	console.log("Refreshing");
+	document.getElementById("refreshButton").value = "Refreshing...";
+	document.getElementById("setButton").disabled = true;
+	document.getElementById("finalizeButton").disabled = true;
+	document.getElementById("wifiSSID").value = "Loading from memory...";
+	document.getElementById("wifiPWD").value = "Loading from memory...";
+	document.getElementById("heliosServerIP").value = "Loading from memory...";
+	document.getElementById("wifiSSID").disabled = true;
+	document.getElementById("wifiPWD").disabled = true;
+	document.getElementById("heliosServerIP").disabled = true;
+	var xmlhttp = new XMLHttpRequest();
+	var url = "setup.json";
+	
+	xmlhttp.onreadystatechange = function() {
+		console.log("Got a response");
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			console.log("response was good, content:");
+			console.log(xmlhttp.responseText);
+			settingsJSON = JSON.parse(xmlhttp.responseText);
+			console.log(JSON.stringify(settingsJSON));
+			updateTextfields(settingsJSON);
+		}
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+
+	function updateTextfields(arr) {
+		console.log("Attempting to update text fields");
+		for(var key in arr){
+			var settingName = key;
+			var settingValue = arr[key];
+			console.log("Finding field named: " + settingName + " of type " + typeof settingName + " with value of: " + settingValue);
+			var elementToUpdate = document.getElementById(settingName);
+			if(elementToUpdate)
+				elementToUpdate.value = settingValue;
+		}
+		document.getElementById("refreshButton").value = "Refresh";
+		document.getElementById("setButton").disabled = false;
+		document.getElementById("finalizeButton").disabled = false;
+	document.getElementById("wifiSSID").disabled = false;
+	document.getElementById("wifiPWD").disabled = false;
+	document.getElementById("heliosServerIP").disabled = false;
+	}
+}
+
+function set(){
+
+	console.log("Running set function");
+
+	if(settingsJSON)
+	{
+		var newSSID = document.getElementById("wifiSSID").value;
+		var newPWD = document.getElementById("wifiPWD").value;
+		
+		
+		if(newSSID && newPWD){
+			console.log("Will attempt to set new SSID of: " + newSSID + " with a password of: " + newPWD);
+			document.getElementById("settingsForm").submit();
+		}
+		else
+		{
+			console.log("Either SSID or password wasn't set");
+		}
+	}
+	
+}
+
+function finalize(){
+	var confirmResult = confirm("Are you sure you want to use these settings?");
+	if(confirmResult == true){
+		document.getElementById("settingsForm").submit();
+		window.location.replace("restart");
+	}
+}
+
+window.onload = refresh;
+</script>
+
+<body>
+
+    <header>
+        <h1>ESP Setup Page</h1>
+    </header>
+
+    <form id="settingsForm" action="" method="post">
+        <fieldset>
+            <legend>WiFi Parameters</legend>
+            SSID:<br>
+            <input type="text" name="wifiSSID" id="wifiSSID">
+            <br> PASSWORD:
+            <br>
+            <input type="password" name="wifiPWD" id="wifiPWD">
+        </fieldset>
+
+        <fieldset>
+            <legend>Helios Server</legend>
+                IP Address:<br>
+                <input type="text" name="heliosServerIP" id="heliosServerIP">
+                <br>
+        </fieldset>
+
+        <div align="right">
+            <button onclick="refresh()" id="refreshButton" type="button">Refresh</button>
+            <button onclick="set()" id="setButton" type="button">Set</button>
+            <button onclick="finalize()" id="finalizeButton" type="button">Finalize</button>
+        </div>
+
+    </form>
+
+    <footer>
+        Created by Arun Kalahasti
+    </footer>
+
+</body>
+
+</html>

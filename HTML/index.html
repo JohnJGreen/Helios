@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<script src="js/Chart.js"></script>
+<script src='lib/jquery.min.js'></script>
+</head>
+<body>
+
+	<div>
+		<span>
+			<button onclick="window.location.href='usage.html'">usage</button>
+			<button onclick="window.location.href='schedule.html'">schedule</button>
+		</span>
+	</div>
+	<div style="width:100%">
+			<div>
+				<canvas id="canvas" height="450" width="600"></canvas>
+			</div>
+	</div>
+	
+	<script>
+		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+		var date = new Date();
+		var ctx = document.getElementById("canvas").getContext("2d");
+		var chart;
+		
+		function updateChart() {			
+			$.ajax ( {
+			   url: "php/newCurrent.php",
+			   dataType: "json",
+			   success: function ( data, textStatus, jqXHR ) {
+				   chart.removeData();
+				   date = new Date(Date.parse(data['time'])-18000000);
+				   chart.addData([data['value']], ""+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds());
+			   }
+		   } );
+		}
+		
+		function genChart(){
+			var data = [];
+			var labels = [];
+			for (i=0; i<40; i++){
+				data.push(0);
+				labels.push("");
+			}
+			var lineChartData = {
+				labels : labels,
+				datasets : [
+					{
+						label: "Current Usage",
+						fillColor : "rgba(151,187,205,0.2)",
+						strokeColor : "rgba(151,187,205,1)",
+						pointColor : "rgba(151,187,205,1)",
+						pointStrokeColor : "#fff",
+						pointHighlightFill : "#fff",
+						pointHighlightStroke : "rgba(151,187,205,1)",
+						data : data
+					}
+				]
+			}
+			document.getElementById("canvas").innerHTML = "";
+			chart = new Chart(ctx).Line(lineChartData);
+			window.myLine = chart;
+		}
+		
+		
+
+	window.onload = function(){
+		genChart();
+		updateChart();
+		setInterval(function(){updateChart()}, 5000);
+	}
+
+
+	</script>
+
+</body>
+</html>

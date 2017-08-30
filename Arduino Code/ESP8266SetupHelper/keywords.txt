@@ -1,0 +1,24 @@
+#######################################
+# Syntax Coloring Map For ESP8266SetupHelper
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ESP8266SetupHelper	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setup			KEYWORD2
+connect			KEYWORD2
+clear			KEYWORD2
+standalone		KEYWORD2
+etWiFiParams	KEYWORD2
+maintain		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################

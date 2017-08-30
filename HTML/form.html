@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Add Event</title>
+<link rel="stylesheet" type="text/css" href="css/view.css" media="all">
+<script type="text/javascript" src="js/view.js"></script>
+<script type="text/javascript" src="js/calendar.js"></script>
+</head>
+<body id="main_body" >
+
+	<button onclick="window.location.href='schedule.html'">schedule</button>
+	
+	<img id="top" src="img/top.png" alt="">
+	<div id="form_container">
+	
+		<h1><a>Add Event</a></h1>
+		<form id="form_1121284" class="appnitro"  method="post" action="" onsubmit="ajaxCall()">
+			<div class="form_description">
+				<h2>Add Event</h2>
+				<p></p>
+			</div>						
+			<ul >
+			
+				<li id="li_1" >
+					<label class="description" for="st_date"></label>
+					<span> Start Date </span>
+					<span>
+						<input id="st_date_1" name="st_date_1" class="element text" size="2" maxlength="2" value="" type="text"> /
+						<label for="st_date_1">MM</label>
+					</span>
+					<span>
+						<input id="st_date_2" name="st_date_2" class="element text" size="2" maxlength="2" value="" type="text"> /
+						<label for="st_date_2">DD</label>
+					</span>
+					<span>
+						<input id="st_date_3" name="st_date_3" class="element text" size="4" maxlength="4" value="" type="text">
+						<label for="st_date_3">YYYY</label>
+					</span>
+				
+					<span id="calendar_1">
+						<img id="cal_img_1" class="datepicker" src="img/calendar.gif" alt="Pick a date.">	
+					</span>
+					<script type="text/javascript">
+						Calendar.setup({
+						inputField	 : "st_date_3",
+						baseField    : "st_date",
+						displayArea  : "calendar_1",
+						button		 : "cal_img_1",
+						ifFormat	 : "%B %e, %Y",
+						onSelect	 : selectDate
+						});
+					</script>
+				</li>
+				
+				<li id="li_2" >
+					<label class="description" for="end_date"></label>
+					<span> End Date </span>
+					<span>
+						<input id="end_date_1" name="end_date_1" class="element text" size="2" maxlength="2" value="" type="text"> /
+						<label for="end_date_1">MM</label>
+					</span>
+					<span>
+						<input id="end_date_2" name="end_date_2" class="element text" size="2" maxlength="2" value="" type="text"> /
+						<label for="end_date_2">DD</label>
+					</span>
+					<span>
+						<input id="end_date_3" name="end_date_3" class="element text" size="4" maxlength="4" value="" type="text">
+						<label for="end_date_3">YYYY</label>
+					</span>
+				
+					<span id="calendar_2">
+						<img id="cal_img_2" class="datepicker" src="img/calendar.gif" alt="Pick a date.">	
+					</span>
+					<script type="text/javascript">
+						Calendar.setup({
+						inputField	 : "end_date_3",
+						baseField    : "end_date",
+						displayArea  : "calendar_2",
+						button		 : "cal_img_2",
+						ifFormat	 : "%B %e, %Y",
+						onSelect	 : selectDate
+						});
+					</script>
+				</li>		
+				
+				<li id="li_3" >
+					<label class="description" for="st_time"></label>
+					<span> Start Time </span>
+					<span>
+						<input id="st_time_1" name="st_time_1" class="element text " size="2" type="text" maxlength="2" value="00"/> : 
+						<label>HH</label>
+					</span>
+					<span>
+						<input id="st_time_2" name="st_time_2" class="element text " size="2" type="text" maxlength="2" value="00"/> : 
+						<label>MM</label>
+					</span>
+					<span>
+						<input id="st_time_3" name="st_time_3" class="element text " size="2" type="text" maxlength="2" value="00"/>
+						<label>SS</label>
+					</span>
+					<span>
+						<select class="element select" style="width:4em" id="st_time_4" name="st_time_4">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+						<label>AM/PM</label>
+					</span> 
+				</li>	
+
+				<li id="li_4" >
+					<label class="description" for="end_time"></label>
+					<span> End Time </span>
+					<span>
+						<input id="end_time_1" name="end_time_1" class="element text " size="2" type="text" maxlength="2" value="00"/> : 
+						<label>HH</label>
+					</span>
+					<span>
+						<input id="end_time_2" name="end_time_2" class="element text " size="2" type="text" maxlength="2" value="00"/> : 
+						<label>MM</label>
+					</span>
+					<span>
+						<input id="end_time_3" name="end_time_3" class="element text " size="2" type="text" maxlength="2" value="00"/>
+						<label>SS</label>
+					</span>
+					<span>
+						<select class="element select" style="width:4em" id="end_time_4" name="end_time_4">
+							<option value="AM" >AM</option>
+							<option value="PM" >PM</option>
+						</select>
+						<label>AM/PM</label>
+					</span> 
+				</li>
+				
+				<li id="li_5" >
+					<label class="description" for="repeat"></label>
+					<div>
+					<span> Repeat </span>
+					<select class="element select medium" id="repeat" name="repeat"> 
+						<option value="1" selected="selected">None</option>
+						<option value="2" >Daily</option>
+						<option value="3" >Weekly</option>
+
+					</select>
+					</div> 
+				</li>	
+				
+				<li id="li_6" >
+					<label class="description" for="switch_num"></label>
+					<div>
+					<span> Switch  </span>
+					<select class="element select medium" id="switch_num" name="switch_num"> 
+						<option value="1" selected="selected" >Main Room</option>
+						<option value="2" >Bedroom</option>
+						<option value="3" >Office</option>
+					</select>
+					</div> 
+				</li>		
+				
+				<li id="li_7" >
+					<label class="description" for="state">Select one </label>
+					<span>
+						<input id="state_1" name="state" class="element radio" type="radio" value="1" />
+						<label class="choice" for="state_1">Switch on</label>
+						<input id="state_2" name="state" class="element radio" type="radio" value="2" checked="checked" />
+						<label class="choice" for="state_2">Switch off</label>
+
+					</span> 
+				</li>	
+				
+				<li id="li_4" >
+					<label class="description" for="comments">Comments </label>
+					<div>
+						<textarea id="comments" name="comments" class="element textarea small"></textarea> 
+					</div> 
+				</li>
+				<input type="submit" value="Submit">
+				
+			</ul>
+		</form>	
+		
+	</div>
+	
+	<script>
+		function pad (n) {
+			return (parseInt(n) < 10) ? ("0" + parseInt(n)) : n;
+		}
+		function ajaxCall() {
+			var start_date_year = document.getElementById('st_date_3').value;
+			var start_date_month = document.getElementById('st_date_1').value-1;
+			var start_date_day = document.getElementById('st_date_2').value;
+			
+			var end_date_year = document.getElementById('end_date_3').value;
+			var end_date_month = document.getElementById('end_date_1').value-1;
+			var end_date_day = document.getElementById('end_date_2').value;
+							
+			var start_time_hour = document.getElementById('st_time_1').value;
+			var start_time_min = document.getElementById('st_time_2').value;
+			var start_time_sec = document.getElementById('st_time_3').value;
+			var start_time_am = document.getElementById('st_time_4').value;
+			
+			var end_time_hour = document.getElementById('end_time_1').value;
+			var end_time_min = document.getElementById('end_time_2').value;
+			var end_time_sec = document.getElementById('end_time_3').value;
+			var end_time_am = document.getElementById('end_time_4').value;
+			
+			var repeat = document.getElementById('repeat').value;
+			var swtch = document.getElementById('switch_num').value;
+			var comment = document.getElementById('comments').value;
+			var state = 0;
+			
+			var name;
+			var topic;
+			
+			var start_date = new Date();
+			var end_date = new Date(2018,0,1);
+			
+			if (document.getElementById('st_date_3').value!=""){
+				start_date.setFullYear(start_date_year);				
+			}
+			if (document.getElementById('st_date_1').value!=""){
+				start_date.setMonth(start_date_month);				
+			}
+			if (document.getElementById('st_date_2').value!=""){
+				start_date.setDate(start_date_day);				
+			}
+			if (document.getElementById('end_date_3').value!=""){				
+				end_date.setFullYear(start_date_year);
+			}
+			if (document.getElementById('end_date_3').value!=""){				
+				end_date.setMonth(end_date_month);
+			}
+			if (document.getElementById('end_date_3').value!=""){				
+				end_date.setDate(end_date_day);
+			}
+			if (swtch == 1){
+				name="mainroom";
+				topic="home/mainroom/";
+			} else if (swtch == 2){
+				name="bedroom";
+				topic="home/bedroom/";
+			} else {
+				name="office";
+				topic="home/office/";
+			}
+			if (document.getElementById('state_1').checked){
+				state = 1;
+				name=name+" on";
+			} else {
+				name=name+" off";
+			}
+			
+			if (repeat==1){
+				repeat = 0;
+			} else if (repeat==2){
+				repeat = 86400;
+			} else {
+				repeat = 604800;
+			}
+			
+			var start_time;
+			if (start_time_am=="PM"){
+				if (start_time_hour=="12"){
+					start_time_hour="00";
+				} else {
+					start_time_hour = String(parseInt(start_time_hour)+12);
+				}				
+			}
+			if (start_time_hour=="" || parseInt(start_time_hour) > 24){
+				start_time_hour = 0;
+				start_time_min = 0;
+				start_time_sec = 0;
+			} else if (parseInt(start_time_min) > 60 || parseInt(start_time_min) <= 0) {
+				start_time_hour = parseInt(start_time_hour);
+				start_time_min = 0;
+				start_time_sec = 0;
+			} else if (parseInt(start_time_sec) > 60 || parseInt(start_time_sec) <= 0) {
+				start_time_hour = parseInt(start_time_hour);
+				start_time_min = parseInt(start_time_min);
+				start_time_sec = 0;
+			} else {
+				start_time_hour = parseInt(start_time_hour);
+				start_time_min = parseInt(start_time_min);
+				start_time_sec = parseInt(start_time_sec);
+			}
+			var end_time;
+			if (end_time_am=="PM"){
+				if (end_time_hour=="12"){
+					end_time_hour="00";
+				} else {
+					end_time_hour = toString(parseInt(end_time_hour)*2);
+				}				
+			}
+			if (end_time_hour=="" || parseInt(end_time_hour) > 24){
+				end_time_hour = 0;
+				end_time_min = 0;
+				end_time_sec = 0;
+			} else if (parseInt(end_time_min) > 60 || parseInt(end_time_min) <= 0) {
+				end_time_hour = parseInt(end_time_hour);
+				end_time_min = 0;
+				end_time_sec = 0;
+			} else if (parseInt(end_time_sec) > 60 || parseInt(end_time_sec) <= 0) {
+				end_time_hour = parseInt(end_time_hour);
+				end_time_min = parseInt(end_time_min);
+				end_time_sec = 0;
+			} else {
+				end_time_hour = parseInt(end_time_hour);
+				end_time_min = parseInt(end_time_min);
+				end_time_sec = parseInt(end_time_sec);
+			}
+
+			start_date.setHours(start_time_hour);
+			start_date.setMinutes(start_time_min);
+			start_date.setSeconds(start_time_sec);
+
+			end_date.setHours(end_time_hour);
+			end_date.setMinutes(end_time_min);
+			end_date.setSeconds(end_time_sec);
+
+			alert("start date: "+Date.parse(start_date)/1000+"\n"+
+					"end date: "+Date.parse(end_date)/1000+"\n"+
+					"start: "+start_date+"\n"+
+					"end: "+end_date+"\n"+
+					"topic: "+topic+"\n"+
+					"name: "+name+"\n"+
+					"command: "+state+"\n"+
+					"repeat: "+repeat+"\n"+
+					"comment: "+comment);
+			
+			$.ajax({
+                type: "POST",
+                url: 'php/schedule.php',
+                data: {
+					type: "create_event",
+					topic: topic,
+					command: state,
+					name: name,
+					comment: comment,
+					start: Date.parse(start_date)/1000,
+					end: Date.parse(end_date)/1000,
+					repeat: repeat
+				},
+                success: function(data)
+                {
+                    alert("success!");
+                }
+            });
+			
+		};
+	</script>
+	
+	<img id="bottom" src="img/bottom.png" alt="">
+	</body>
+</html>
